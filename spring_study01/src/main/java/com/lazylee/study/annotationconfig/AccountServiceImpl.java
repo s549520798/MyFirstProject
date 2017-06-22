@@ -1,13 +1,18 @@
-package com.lazylee.study.javaconfig;
+package com.lazylee.study.annotationconfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by lazylee on 2017/6/21.
+ *
  */
+
+/* @Service he @Repository 都扩展自@Component 定义spring管理的bean */
+@Service
 public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
-
+    @Autowired
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
