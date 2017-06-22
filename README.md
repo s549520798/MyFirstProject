@@ -1,2 +1,2 @@
-# My respository for study java and android 
+# My repository for study java and android 
 my first project
