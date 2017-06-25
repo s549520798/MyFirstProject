@@ -6,6 +6,28 @@
     <bean id="accountService" class="com.lazylee.study.xmlconfig.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"/>
     </bean>
+    <!--
+        1.<property name="accountDao" ref="accountDao"/>
+        property 用来进行依赖注入 ref 指向 名称是accountDao的 bean.
+        倘若没有配置AccountBean 的Bean 实例 则会编译出错
+        2.除了注入bean之外,还可以使用<property>的 value 属性来注入
+        int、String、boolean、Enum 等属性。
+        e.g :<property name="id" value="1"/>
+             <property name="ownerName" value="John"/>
+             <property name="balance" value="10.0"/>
+             <property name="locked" value="false"/>
+        3.spring还允许注入Collection 或 Map 值
+        <bean id="accountDao"
+                class="com.lazylee.study.xmlconfig.AccountDaoInMemoryImpl">
+            <property name="accountMap">
+                <map>
+                    <entry key="1" value-ref="account1"/>
+                    <entry key="2" value-ref="account2"/>
+                </map>
+            </property>
+        </bean>
+
+     -->
     <bean id="accountDao" class="com.lazylee.study.xmlconfig.AccountDaoInMemoryImpl">
 
     </bean>
