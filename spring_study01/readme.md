@@ -32,7 +32,7 @@ Beans. 这两个注解都扩展自 org.springframework.stereotype.Component.
 ## 2. 依赖注入
 
 --------------------------
-#### setter注入
+#### setter注入(属性注入)
 1. property 用来进行依赖注入 ref 指向名称是accountDao的 bean.倘若没有配置accountBean的Bean实例 则会编译出错
         
        < property name="accountDao" ref="accountDao"/>
@@ -84,5 +84,9 @@ Beans. 这两个注解都扩展自 org.springframework.stereotype.Component.
 
 **注:对于循环依赖的情况,例如A的构造依赖与B,B的构造依赖于A,则spring构造注入不能实例化这两个Bean,但是setter注入
 可以实现这两个Bean的实例化**
+
+#### 接口注入
+通过新建一个接口(interface),声明注入方法,再由需导入依赖的类实现接口.
+这样做会增加工作量,且本质上和属性注入无区别,并不推荐使用.
 
  
