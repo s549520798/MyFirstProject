@@ -28,7 +28,14 @@ Beans. 这两个注解都扩展自 org.springframework.stereotype.Component.
  
 
 #### 基于java的配置方式
+java配置来源于spring的一个子项目 javaConfig ,该项目允许以java类作为spring的配置文件,现在已经加spring核心组件之中
+使用 @Configuration 注解的java文件可以被看做java类配置文件
+java配置相对于xml配置来说,可以是编程人员更容易控制Bean的初始化过程,配置方式也更加灵活.
+提供了专门ApplicationContext的实现类AnnotationConfigurationApplicationContext
 
+#### 基于Groovy的配置方式
+spring 允许使用 groovy DSL 来实现配置,可以实现复杂灵活的Bean配置
+提供了专门ApplicationContext的实现类GenericGroovyApplicationContext
 ## 2. 依赖注入
 
 --------------------------
