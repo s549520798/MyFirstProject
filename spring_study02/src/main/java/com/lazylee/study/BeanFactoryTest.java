@@ -20,7 +20,7 @@ public class BeanFactoryTest {
      *
      * 首先,XmlBeanDefinitionReader 通过Resource装载 ioc容器的配置文件
      * 然后,通过DefaultListableBeanFactory的getBean方法获取Bean的对象.
-     * @throws IOException
+     * @throws IOException io异常
      */
     @Test
     public void getBeans() throws IOException {
