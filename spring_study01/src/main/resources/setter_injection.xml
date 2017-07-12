@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用<bean/>为spring的ioc容器配置Bean，
+        1.其中 id 为这个Bean的名称，容器通过getBean("accountService")就可以得到对应Bean,也可以通过name属性指定
+          这个bean的名称,class 属性指定Bean对应的实现类;
+        2.id在容器中必须是唯一的,还需满足XML对id的命名规范:
+            必须以字母开头,后面可以是字母、数字、连字符、下划线、句号和冒号等完整结束符号，逗号和空格等非结束
+            符号是非法的。
+        3.当用户想使用违反规定的方式对Bean进行命名时，可以使用name属性对Bean进行命名，name属性没有命名时字符的限制。
+        4.id和name都可以指定多个名字，名字之间使用逗号，分号或者空格进行分阁，例如：
+            <bean name="car,bus,&sdf" class="......"/>
+        5.spring容器中不允许出现相同id的bean,但name属相却可以重复,但是在使用getBean(beanName)得到Bean时,会返回
+          后声明的bean;
+        6.如果id和name属相都未指定,那么可以使用全限定名得到相应的Bean,例如:
+            <bean class="com.lazylee.Car">
+            可以使用getBean("com.lazylee.Car")得到该Bean.
+          如果存在多个实现类相同的匿名bean,如
+            <bean class="com.lazylee.Car">
+            <bean class="com.lazylee.Car">
+            <bean class="com.lazylee.Car">
+            使用getBean("com.lazylee.Car")得到第一个Bean,使用getBean("com.lazylee.Car#1")得到第二个Bean,
+            使用getBean("com.lazylee.Car#2")得到第三个Bean.
+    -->
+    <bean id="accountService" class="com.lazylee.study.setter_injection.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+    <!--
+        1.<property name="accountDao" ref="accountDao"/>
+        property 用来进行依赖注入 ref 指向 名称是accountDao的 bean.
+        倘若没有配置AccountBean 的Bean 实例 则会编译出错
+        2.除了注入bean之外,还可以使用<property>的 value 属性来注入
+        int、String、boolean、Enum 等属性。
+        e.g :<property name="id" value="1"/>
+             <property name="ownerName" value="John"/>
+             <property name="balance" value="10.0"/>
+             <property name="locked" value="false"/>
+        3.spring还允许注入Collection 或 Map 值
+        <bean id="accountDao"
+                class="com.lazylee.study.xmlconfig.AccountDaoInMemoryImpl">
+            <property name="accountMap">
+                <map>
+                    <entry key="1" value-ref="account1"/>
+                    <entry key="2" value-ref="account2"/>
+                </map>
+            </property>
+        </bean>
+
+     -->
+    <bean id="accountDao" class="com.lazylee.study.setter_injection.AccountDaoInMemoryImpl">
+        <property name="accountsMap">
+            <map>
+                <entry key="1" value-ref="account1"/>
+                <entry key="2" value-ref="account2"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="account1" class="com.lazylee.study.setter_injection.Account">
+        <property name="id" value="1" />
+        <property name="ownerName" value="John" />
+        <property name="balance" value="10.0"/>
+        <property name="locked" value="false" />
+    </bean>
+
+    <bean id="account2" class="com.lazylee.study.setter_injection.Account">
+        <property name="id" value="2" />
+        <property name="ownerName" value="Mary" />
+        <property name="balance" value="20.0"/>
+        <property name="locked" value="false" />
+    </bean>
+</beans>
