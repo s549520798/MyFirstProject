@@ -13,17 +13,31 @@
 在同一个项目中,可以根据项目需要,或者个人习惯,使用其中的一种或同时使用
 多中配置元数据的方式.
 
-#### 基于xml配置方式
+#### **基于xml配置方式**
+XML配置文件头的声明如下：
 
-
+      <beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans"
+             "http://www.springframework.org/schema/beans/spring-beans.xsd"
+             "http://www.springframework.org/schema/context"
+             "http://www.springframework.org/schema/beans/spring-context.xsd">
+             
+其中 _xmlns="http://www.springframework.org/schema/beans"_ 为默认命名空间；
+_xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"_ 是 xsi标准命名空间，用于指定自定义命名空间的Schema文件；
+_xmlns:context="http://www.springframework.org/schema/context"_ 自定义命名空间，context为命名空间的别称，
+"http://www.springframework.org/schema/context" 是命名空间的全称，必须在xsi为其指定相应的Schema文件，如果命名的别名为空，
+则表示该命名空间为文档默认命名空间，如第一条所示；
+_xsi:schemaLocation="http://www.springframework.org/schema/beans"  
+"http://www.springframework.org/schema/beans/spring-beans.xsd"_ 是为每个自定义命名空间指定了具体的Schema文件；
+根据自己的需求添加相应的命名文件。
 
 #### 基于注解的配置方式
 注解<code>@Servide</code>和<code>@Repository</code>都定义了spring管理的
 Beans. 这两个注解都扩展自 org.springframework.stereotype.Component.
 - @Service 注解除了将一个类定义为bean外,没有其他含义.
 - @Repository 能够启用与Spring数据访问相关的其他功能.
-
-
 - @Autowired 自动装配 
  
 
@@ -64,8 +78,10 @@ spring 允许使用 groovy DSL 来实现配置,可以实现复杂灵活的Bean�
                 < /map>
             < /property>
         < /bean>
+ **注意:** spring容器在进行setter注入的时候只会检查是否具有setter方法,而不会去检查set的变量是否存在,但是我们在
+ 编程时,最好声声明变量的存在
 #### 构造函数注入
-构造函数注入是在组件创建期间被执行.
+构造函数注入是在组件创建期间被执行,保证了bean在实例化时属性就被注入.
 
 1. 在xml配置文件中配置< bean>属性
       
