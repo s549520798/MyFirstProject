@@ -12,6 +12,12 @@ public class Account {
     private Date accessTime;
     private boolean locked;
 
+    public Account(long id, String ownerName, double balance) {
+        this.id = id;
+        this.ownerName = ownerName;
+        this.balance = balance;
+    }
+
     public long getId() {
         return id;
     }

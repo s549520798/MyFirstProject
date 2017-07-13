@@ -11,21 +11,28 @@ import java.util.Map;
 public class AccountDaoInMemoryImpl implements AccountDao {
 
     private Map<Long, Account> accountMap = new HashMap<Long, Account>();
-
-    {
-        Account account1 = new Account();
-        account1.setId(1L);
-        account1.setOwnerName("John");
-        account1.setBalance(10.0);
-
-        Account account2 = new Account();
-        account2.setId(2L);
-        account2.setOwnerName("Mary");
-        account2.setBalance(20.0);
-
+    private Account account1;
+    private Account account2;
+    public AccountDaoInMemoryImpl(Account account1 ,Account account2) {
+        this.account1 = account1;
+        this.account2 = account2;
         accountMap.put(account1.getId(), account1);
         accountMap.put(account2.getId(), account2);
     }
+
+    /*{
+            Account account1 = new Account();
+            account1.setId(1L);
+            account1.setOwnerName("John");
+            account1.setBalance(10.0);
+
+            Account account2 = new Account();
+            account2.setId(2L);
+            account2.setOwnerName("Mary");
+            account2.setBalance(20.0);
+            accountMap.put(account1.getId(), account1);
+            accountMap.put(account2.getId(), account2);
+        }*/
 
     public void insert(Account account) {
         accountMap.put(account.getId(), account);
