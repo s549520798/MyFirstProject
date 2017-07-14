@@ -8,8 +8,22 @@
     </bean>
 
     <bean id="accountDao" class="com.lazylee.study.constructor_injection.AccountDaoInMemoryImpl">
+        <constructor-arg index="0" type="com.lazylee.study.constructor_injection.Account"
+                         ref="account1"/>
+        <constructor-arg index="1" type="com.lazylee.study.constructor_injection.Account"
+                         ref="account2"/>
     </bean>
 
+    <bean id="account1" class="com.lazylee.study.constructor_injection.Account">
+        <constructor-arg index="0" type="long" value="1"/>
+        <constructor-arg index="1" type="java.lang.String" value="John"/>
+        <constructor-arg index="2" type="double" value="10.0"/>
+    </bean>
+    <bean id="account2" class="com.lazylee.study.constructor_injection.Account">
+        <constructor-arg index="0" type="long" value="2"/>
+        <constructor-arg index="1" type="java.lang.String" value="Mary"/>
+        <constructor-arg index="2" type="double" value="20.0"/>
+    </bean>
 
 
 </beans>
