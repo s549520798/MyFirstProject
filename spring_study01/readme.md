@@ -1,6 +1,9 @@
 # spring study 01
 
 ---------------------------
+
+[TOC]
+
 ## **1.配置元数据**
 > 为了实例化bean,并指定如何对这些bean进行装配,需要向IoC容器提供信息,
 所提供的信息被称为**配置元数据**(_configuration metadata_).
@@ -33,6 +36,69 @@ _xsi:schemaLocation="http://www.springframework.org/schema/beans"
 "http://www.springframework.org/schema/beans/spring-beans.xsd"_ 是为每个自定义命名空间指定了具体的Schema文件；
 根据自己的需求添加相应的命名文件。
 
+##### 1.在xml文件中声明Bean
+    
+    <bean id="accountService" class="com.lazylee.study.xmlconfig.AccountServiceImpl">
+            <property name="accountDao" ref="accountDao"/>
+    </bean>
+    
+  使用<bean/>为spring的ioc容器配置Bean.  
+  1.其中 id 为这个Bean的名称，容器通过getBean("accountService")就可以得到对应Bean,也可以通过name属性指定
+    这个bean的名称,class 属性指定Bean对应的实现类;  
+  2.id在容器中必须是唯一的,还需满足XML对id的命名规范:  
+      必须以字母开头,后面可以是字母、数字、连字符、下划线、句号和冒号等完整结束符号，逗号和空格等非结束
+      符号是非法的。  
+  3.当用户想使用违反规定的方式对Bean进行命名时，可以使用name属性对Bean进行命名，name属性没有命名时字符的限制。
+  4.id和name都可以指定多个名字，名字之间使用逗号，分号或者空格进行分阁，例如：  
+    
+    <bean name="car,bus,&sdf" class="......"/>  
+  5.spring容器中不允许出现相同id的bean,但name属相却可以重复,但是在使用getBean(beanName)得到Bean时,会返回
+    后声明的bean;  
+  6.如果id和name属相都未指定,那么可以使用全限定名得到相应的Bean,例如:  
+    
+    <bean class="com.lazylee.Car">  
+      
+   可以使用getBean("com.lazylee.Car")得到该Bean.  
+    如果存在多个实现类相同的匿名bean,如  
+    
+    <bean class="com.lazylee.Car">  
+    <bean class="com.lazylee.Car">  
+    <bean class="com.lazylee.Car">  
+  使用getBean("com.lazylee.Car")得到第一个Bean,使用getBean("com.lazylee.Car#1")得到第二个Bean,  
+  使用getBean("com.lazylee.Car#2")得到第三个Bean.  
+##### 2.使用< property/>为Bean进行属性注入,使用< constructor-arg/> 进行构造函数注入
+查看[依赖注入](##2.依赖注入)
+##### 3.工厂方法注入
+1.非静态工厂方法注入  
+如有工厂方法：
+    
+    public class CarFactory{
+    
+         public Car createCar(){
+             Car car = new Car();
+             return car;
+         }
+    }
+则在xml文件中配置Car类的Bean时，可以使用
+    
+    <!--非静态工厂类Bean -->
+    <bean id="carFactory" class="com.example.CarFactory"/> 
+    <!-- Car  bean-->
+    <bean id="car" factory-bean="carFactory"
+                   factory-method="createCar"/>
+2.静态工厂类方法注入
+静态工厂方法：
+    
+    public class CarFactory{
+        public static Car createCar(){
+            Car car = new Car();
+            return car;
+        }
+    }
+在xml文件中配置Bean时，则不需要配置工厂类的Bean，只需配置
+    
+    <bean id="car" class="com.example.CarFactory" 
+                   factory-method="createCar"/>
 #### 基于注解的配置方式
 注解<code>@Servide</code>和<code>@Repository</code>都定义了spring管理的
 Beans. 这两个注解都扩展自 org.springframework.stereotype.Component.
@@ -50,7 +116,7 @@ java配置相对于xml配置来说,可以是编程人员更容易控制Bean的�
 #### 基于Groovy的配置方式
 spring 允许使用 groovy DSL 来实现配置,可以实现复杂灵活的Bean配置
 提供了专门ApplicationContext的实现类GenericGroovyApplicationContext
-## 2. 依赖注入
+## 2.依赖注入
 
 --------------------------
 #### setter注入(属性注入)
