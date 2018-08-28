@@ -42,7 +42,7 @@ public class Car {
                 '}';
     }
 
-    public void  instroduce(){
+    public void  introduce(){
         System.out.println(this.toString());
     }
 }

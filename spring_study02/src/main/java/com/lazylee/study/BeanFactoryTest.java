@@ -43,7 +43,7 @@ public class BeanFactoryTest {
         * */
 
         Car car = factory.getBean("car",Car.class);
-        car.instroduce();
+        car.introduce();
 
     }
 }
